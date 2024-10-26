@@ -28,11 +28,11 @@ def optimize_dqn(trial, env: WebGame, eval_env: WebGame, eval_callback):
         gamma=gamma,
         target_update_interval=target_update_interval,
         learning_starts=500,
-        verbose=1,
+        verbose=0,
     )
 
     # Treinar o modelo com um número limitado de timesteps para cada trial
-    model.learn(total_timesteps=1000, callback=eval_callback)
+    model.learn(total_timesteps=15000, callback=eval_callback)
 
     # Avaliar o modelo após o treinamento
     mean_reward, _ = evaluate_policy(model, eval_env, n_eval_episodes=5)
