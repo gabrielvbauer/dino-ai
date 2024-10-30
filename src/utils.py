@@ -7,6 +7,10 @@ BEST_MODEL_LOGS = "./best-model-logs/"
 
 
 def get_current_time():
-    return "{}{}{}{}".format(
-        localtime().tm_year, localtime().tm_mon, localtime().tm_hour, localtime().tm_min
+    return "{}{}{}{}{}".format(
+        localtime().tm_year,
+        localtime().tm_mon,
+        localtime().tm_mday,
+        localtime().tm_hour,
+        localtime().tm_min,
     )
