@@ -48,14 +48,32 @@ def start_training():
 
 def run_model():
     print("Starting final model.")
-    model = DQN.load(os.path.join("train", "best_model_100000"))
+    model = DQN(
+        "CnnPolicy",
+        env,
+        tensorboard_log=LOG_DIR,
+        verbose=1,
+        learning_starts=1000,
+        buffer_size=10000,
+        batch_size=128,
+        gamma=0.972270290523627,
+        target_update_interval=500,
+        learning_rate=1.0553082748309351e-05,
+    )
 
-    for _ in iter(int, 1):
+    model = DQN.load(os.path.join("train", "best_model_156000-20241029749"))
+
+    for episode in range(10):
+        print("starting ", episode)
         obs, _ = env.reset()
         done = False
+        total_reward = 0
 
         while not done:
-            done = model.predict(obs)
+            action, _ = model.predict(obs)
+            obs, reward, done, truncated, info = env.step(int(action))
+            total_reward += reward
+        print("Total reward for episode {} is {}".format(episode, total_reward))
         sleep(1)
 
 
